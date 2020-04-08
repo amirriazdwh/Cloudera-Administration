@@ -1,0 +1,14 @@
+The Cloudera Manager Agent is a Cloudera Manager component that works with the Cloudera Manager Server to manage the processes that map to role instances.
+The Agent is monitored as part of Cloudera Manager's host monitoring.
+
+
+////////////////////////////////////////////////////////
+// create cloudera repository to download the services 
+/////////////////////////////////////////////////////////
+
+
+
+[root@quickstart cloudera]# cd /etc/yum.repos.d/
+[root@quickstart yum.repos.d]# ls
+CentOS-Base.repo       CentOS-fasttrack.repo  CentOS-Vault.repo   cloudera-gplextras5.repo  cloudera-manager.repo
+CentOS-Debuginfo.repo  CentOS-Media.repo      cloudera-cdh5.repo  cloudera-kafka.repo       epel.repo

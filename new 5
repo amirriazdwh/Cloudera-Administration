@@ -1,0 +1,32 @@
+ ln -s python2.7 python
+
+
+sudo yum install cloudera-manager-agent cloudera-manager-server
+
+
+sed -i "s/python/python2.7/g" /usr/bin/yum
+
+
+/usr/bin/ol_yum_configure.sh
+
+Federal Law No 2 of 2015 – On Combating Discrimination and Hatred – made discrimination on the basis of someone’s religion, belief, sect, faith, creed, race, colour or ethnic ­origin illegal.
+
+
+/usr/bin/ol_yum_configure.sh
+
+/opt/rh/python27/root/usr/bin/python2.7
+
+ln -sf /usr/local/bin/python2.7 python
+
+
+update-alternatives --install /usr/bin/python /opt/rh/python27/root/usr/bin/python2.7 1
+
+
+export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera
+export PATH=$JAVA_HOME/bin:$PATH
+
+
+UPDATE mysql.user SET Password=PASSWORD('oc4jadmin') WHERE User='root';
+
+SD)yfPYL;6;O
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'oc4jAdmin!';

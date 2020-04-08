@@ -1,0 +1,168 @@
+resource group : Cloudera_Intern
+
+
+--------------------------------------------------------------------------------------
+machine 
+
+
+ 10.99.1.11 cloudera62-master-01       Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.12 cloudera62-master-02       Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.13 cloudera62-worker-01      Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.14 cloudera62-worker-02      Standard D4 v2 (8 vcpus, 28 GiB memory)
+
+----------------------
+regions 
+
+western europe
+----------------------
+
+
+--------------------------
+availbility options 
+
+availbility set
+
+-----------------------------
+availbility set
+interclouderaAS
+
+--------------------
+image 
+centos 7.5
+
+------------------------------------------
+size
+D4s_v3
+
+hdfs os commands 
+
+-------------------------
+username : clouderaadmin
+
+------------------------------------------------
+encryption key public 
+
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAvjQ0V+/A7TBFmziN9/lURtmUnXRRP4NQK5Piwfxu/t+OvCJYCxGZXxBY2ACwwsk2oYzCyUy0xRp7AtGHjrKyBINfX5ZViaVLCh0nXQAOLm8CfalPgVE+4TjIa8YYXjEnMqDQ6VZ77gVV9re5GztfbLibQF/m++ROMK11oqCB9Ql+r3LMheNcpZvydcIBhr0L027nL8VQI0wv18x1/XyrVIy7WweDcA/FLWUDiNnEAgqo/7JwEkMsYTAABxwxiLJ/oDm3Hj1W6/9TkCEsyG+ztQzVSpIZLl6k8m8/VuB0mYZbcGcAmio2ZamIc8/OloBlp2bJIBDqHIcjXyqATTOkvQ==
+
+---------------------------------
+allow specfic ports
+https and ssh
+------------------
+Disk option 
+Standard Hdd  (set the os disk you can add more disks later)
+----------------------------
+Networking 
+virtual network : interclouderaVN
+subnet          : 10.99.1.0
+public id       : machine-name-id
+Nic network security group :  machine-name-nsg
+accelerated networking     : off
+load balance               :  off 
+---------------------------------------
+management 
+boot diagonastics : on
+os guest diagonastics : off
+diagonastics storage account : clouderainterndia
+system assgined identify management: off 
+autoshutdown: on  time 7PM 
+timezone   :  utc+1 brussels
+notification shutdown : off 
+-----------------------------------------
+create disk 
+diskname :
+resource group : Cloudera_Intern
+Account type   : standard HDD
+siz            : 32GB
+Source type    : none 
+--------------------------------------
+
+virtual disk masters
+cloudera62_Master1_disk01_Log  32g
+cloudera62_Master1_disk01_QJN  32g
+cloudera62_Master1_disk01_MySql  32g
+cloudera62_Master1_disk01_ZooKeeper  32g
+---------------------------------
+cloudera62_Master2_disk01_Log
+cloudera62_Master2_disk01_QJN 
+cloudera62_Master2_disk01_MySql
+cloudera62_Master2_disk01_ZooKeeper
+----------------------------------------
+Virtual disk works 
+clouder62_work_01_disk_hdfs_01    :512GB
+clouder62_work_01_disk_hdfs_02    :512GB
+--------------------------------------------
+clouder62_work_02_disk_hdfs_01    :512GB
+clouder62_work_02_disk_hdfs_02    :512GB
+---------------------------------
+df -h|grep /dev/sd
+
+/etc/hosts file 
+10.99.1.11 cloudera62-master-01.local
+10.99.1.12 cloudera62-master-02.local
+10.99.1.13 cloudera62-worker-01.local
+10.99.1.14 cloudera62-worker-02.local
+---------------------------------------------
+master directories
+
+sudo mkdir -p /log/cloudera/zookeeper
+sudo mkdir /log
+sudo mkdir -p /var/lib/mysql
+sudo mkdir -p /data/dfs
+-------------------------------------------
+worker directories 
+sudo mkdir -p /data/1/dfs/dn
+sudo mkdir -p /data/2/dfs/dn
+
+---------------------------------------------
+
+sudo lsblk --fs
+
+sudo mkfs.ext4 -L logsdata /dev/sdc
+sudo mkfs.ext4 -L Zookeeper /dev/sdd
+sudo mkfs.ext4 -L QJNdata /dev/sde
+sudo mkfs.ext4 -L MySqldata /dev/sdf
+
+sudo mkfs.ext4 -L DataNode1Disk1 /dev/sdb
+sudo mkfs.ext4 -L DataNode1Disk2 /dev/sdd
+
+sudo mkfs.ext4 -L DataNode2Disk1 /dev/sdc
+sudo mkfs.ext4 -L DataNode2Disk2 /dev/sdd
+
+sudo lsblk -o NAME,FSTYPE,LABEL,UUID,MOUNTPOINT
+-----------------------------------------------------
+
+UUID=3f798317-1796-4779-8366-bc728cd45b0e   /log    ext4    defaults,noatime        0 1
+UUID=f31bbc2a-a320-447e-b32d-ef90b331c6a1   /log/cloudera/zookeeper    ext4   defaults,noatime 0 1
+UUID=47711882-7429-4513-a839-5e345759eb68   /data/dfs/    ext4   defaults,noatime 0 1
+UUID=1f59e7a0-5ca8-4365-8e26-6d8b097edaa0   /var/lib/mysql    ext4   defaults,noatime 0 1
+
+sudo mount -o defaults /dev/sdc /log
+
+sudo vi /etc/fstab
+
+LABEL=DataNode1Disk1 /data/1/dfs/dn ext4 defaults,noatime   0 1
+LABEL=DataNode1Disk2 /data/2/dfs/dn ext4 defaults,noatime   0 1
+
+
+/dev/sdc   /log    ext4    defaults,noatime   0 1
+/dev/sdd   /log/cloudera/zookeeper    ext4   defaults,noatime 0 1
+/dev/sde   /data/dfs/    ext4   defaults,noatime 0 1
+/dev/sdf   /var/lib/mysql    ext4   defaults,noatime 0 1
+
+
+## Use one of the identifiers you found to reference the correct partition
+# /dev/sda1 /mnt/data ext4 defaults 0 2
+# UUID=4b313333-a7b5-48c1-a957-d77d637e4fda /mnt/data ext4 defaults 0 2
+LABEL=datapartition /mnt/data ext4 defaults 0 2
+
+sudo mount /log
+sudo mount /log/cloudera/zookeeper
+sudo mount /data/dfs/
+sudo mount /var/lib/mysql
+
+--------------------------
+sudo umount /log
+sudo umount /log/cloudera/zookeeper
+sudo umount /data/dfs/
+sudo umount /var/lib/mysql
+--------------------------------------------------------------------

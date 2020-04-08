@@ -1,0 +1,35 @@
+/etc/sudoers
+
+cat /etc/sudoers
+sudo vi /etc/sudoers
+
+## Same thing without a password
+%cloudera-scm   ALL=(ALL)       NOPASSWD: ALL
+
+usermod -aG sudo username
+
+groupadd -g 2000 cloudera
+useradd -u 2000 cloudera -G cloudera
+
+
+usermod -aG wheel cloudera
+
+
+
+# Download the cloudera-manager.repo file for your OS version to the /etc/yum.repos.d/ directory on the Cloudera Manager Server host.
+
+link contain the software which will be downloaded b maven repository
+https://archive.cloudera.com/cm6/6.3.1/redhat6/yum/cloudera-manager.repo
+
+sudo wget https://archive.cloudera.com/cm6/6.3.1/redhat6/yum/cloudera-manager.repo -P /etc/yum.repos.d/
+sudo rpm --import https://archive.cloudera.com/cm6/6.3.0/redhat6/yum/RPM-GPG-KEY-cloudera
+
+
+
+# install java
+sudo yum install oracle-j2sdk1.8
+
+
+# install cloudera-manager
+sudo yum remove cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
+sudo yum install cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server

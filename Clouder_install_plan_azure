@@ -1,0 +1,50 @@
+cloudera manager
+
+http://192.168.56.104:7180/cmf/home
+
+
+interncloudera-master-01
+interncloudera-master-02
+interncloudera-tools-01
+interncloudera-tools-02
+interncloudera-worker-01
+interncloudera-worker-02
+
+
+Cloudera 6.2 server azure machine 
+
+DNS
+interncloudera-master01.westeurope.cloudapp.azure.com
+								
+ 10.99.1.20 cloudera62-master-01       Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.21 cloudera62-master-02       Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.22 cloudera62-worker-01      Standard D4 v2 (8 vcpus, 28 GiB memory)
+ 10.99.1.24 cloudera62-worker-02      Standard D4 v2 (8 vcpus, 28 GiB memory)
+
+virtual network
+interclouderaVN/interclouderaVN
+
+
+o	50 GB HDD - OS
+o	32 GB HDD - Log
+o	32 GB HDD - Zookeeper
+o	32 GB HDD - QJN
+o	32 GB HDD – MysqL
+
+size
+D4s_v3
+
+disk
+cloudera62_Master1_disk01_Log  32g
+cloudera62_Master1_disk01_QJN  32g
+cloudera62_Master1_disk01_MySql  32g
+cloudera62_Master1_disk01_ZooKeeper  32g
+
+
+o	50 GB HDD - OS
+o	32 GB HDD - Log
+o	32 GB HDD - Zookeeper
+o	32 GB HDD - QJN
+o	32 GB HDD – MySQL
+
+df -h|grep /dev/sd

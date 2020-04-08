@@ -1,0 +1,8 @@
+Spark has a feature called "history server" which allows you to browse historical events after the SparkContext dies. 
+This property is set via setting spark.eventLog.enabled to true.
+
+You have two options, either specify a valid directory to store the event log via the spark.eventLog.dir config value, 
+or simply set spark.eventLog.enabled to false if you don't need it.
+
+
+

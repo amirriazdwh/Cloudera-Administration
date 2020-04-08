@@ -1,0 +1,69 @@
+hdfs dfs -copyFromLocal /home/cloudera/guruhive_external /user/cloudera/amir
+
+beeline
+beeline --incremental=true
+
+!connect jdbc:hive2://quickstart.cloudera:10000/retail
+!reconnect jdbc:hive2:// silver-server-hive.app.google.com:10000/default; 
+
+set mapred.job.queue.name=<your queue name>; 
+USE google_map_data;
+
+!quit
+
+beeline -u jdbc:hive2:// silver-server-hive.app.google.com:10000\ 
+-n <yourname> -p <yourpassword> --incremental=true**
+
+SHOW DATABASES;
+USE <database>;
+
+SHOW TABLES;
+DESC <table>;
+DESC FORMATTED <table>;
+
+
+drop table guruhive_internaltable ;
+
+CREATE TABLE guruhive_internaltable (id INT,Name STRING)
+Row format delimited 
+Fields terminated by '\t';
+
+select * from guruhive_internaltable;
+
+LOAD DATA INPATH '/user/hive/warehouse/retail.db/guruhive_external' INTO table guruhive_internaltable;
+select * from guruhive_external;
+
+SET mapred.job.tracker=local;
+
+
+sqoop import-all-tables \
+-m 1 \
+--connect jdbc:mysql://192.168.56.101:3306/retail_db \
+--username=retail_dba \
+--password=cloudera \
+--compression-codec=snappy \
+--as-parquetfile \
+--warehouse-dir=/user/hive/warehouse \
+--hive-import
+
+hadoop fs -ls /user/hive/warehouse/
+hadoop fs -ls /user/hive/warehouse/categories/
+
+sudo gunzip $SPARK_HOME/lib/python.tar.gz
+sudo gunzip -d --force python.tar.gz
+
+sudo tar xvf $SPARK_HOME/lib/python.tar
+
+export SPARK_HOME=/usr/lib/spark/examples
+spark-submit --master yarn --deploy-mode cluster $SPARK_HOME/lib/pi.py 10
+spark-submit --master yarn --deploy-mode cluster sql.py 10
+
+
+val spark = SparkSession.builder().appName("Spark Hive Example").config("spark.sql.warehouse.dir", warehouseLocation).enableHiveSupport().getOrCreate()
+
+spark-submit --version
+
+
+
+
+

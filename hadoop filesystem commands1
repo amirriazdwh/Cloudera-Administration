@@ -1,0 +1,113 @@
+hadoop commands
+
+hadoop version
+hdfs dfs -ls /
+hdfs dfs -df hdfs:/
+hdfs dfs -df -h hdfs:/
+
+// permission denied 
+hdfs dfs -count hdfs:/
+ 
+hdfs fsck /
+hdfs balancer
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /user
+Found 8 items
+drwxr-xr-x   - cloudera cloudera            0 2019-07-09 01:11 /user/cloudera
+drwxr-xr-x   - mapred   hadoop              0 2019-07-08 00:36 /user/history
+drwxrwxrwx   - hive     supergroup          0 2017-10-23 09:17 /user/hive
+drwxrwxrwx   - hue      supergroup          0 2019-07-09 00:04 /user/hue
+drwxrwxrwx   - jenkins  supergroup          0 2017-10-23 09:15 /user/jenkins
+drwxrwxrwx   - oozie    supergroup          0 2017-10-23 09:16 /user/oozie
+drwxrwxrwx   - root     supergroup          0 2019-07-09 01:16 /user/root
+drwxr-xr-x   - hdfs     supergroup          0 2017-10-23 09:17 /user/spark
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera
+Found 4 items
+drwx------   - cloudera cloudera          0 2019-07-09 01:02 /user/cloudera/.Trash
+drwxr-xr-x   - cloudera cloudera          0 2019-07-08 01:01 /user/cloudera/amir
+drwxr-xr-x   - cloudera cloudera          0 2019-07-08 01:09 /user/cloudera/annie
+-rw-r--r--   1 cloudera cloudera      53655 2019-07-09 01:11 /user/cloudera/enterprise-deployment.json
+
+
+hdfs dfs -put test /hadoop
+hdfs dfs -ls /hadoop
+
+HDFS Command to copy directory from single source, or multiple sources from local file system to the destination file system.
+ubuntu@ubuntu-VirtualBox:~$ hdfs dfs -put hello /hadoop/
+
+hdfs dfs -du /
+
+remove a file 
+ hdfs dfs -rm /hadoop/test
+
+//purge trash can
+ hdfs dfs -expunge
+ 
+ // remove a direcotry
+ hdfs dfs -rm -r /hadoop/hello
+ 
+hdfs dfs -chmod 777 /hadoop
+hdfs dfs -mkdir -p amir/home
+ 
+[cloudera@quickstart ~]$ hdfs dfs -put enterprise-deployment.json amir/home
+[cloudera@quickstart ~]$ hdfs dfs -ls -R amir
+drwxr-xr-x   - cloudera cloudera          0 2019-07-09 03:21 amir/home
+-rw-r--r--   1 cloudera cloudera      53655 2019-07-09 03:21 amir/home/enterprise-deployment.json
+
+ hdfs dfs -get /hadoop/test /home/ubuntu/Desktop/
+ 
+ // create a file of zero size 
+ HDFS Command to create a file in HDFS with file size 0 bytes.
+ hdfs dfs -touchz /hadoop/sample
+ 
+/////////////////////////////////////////////////////////////////////////
+// HDFS Command that takes a source file and outputs the file in text format.
+/////////////////////////////////////////////////////////////////////////
+hdfs dfs -text /hadoop/test
+This is a test.
+
+update-alternatives --config java
+
+
+yum install java-1.8.0-openjdk
+
+
+
+/////////////////////////////////////////////////////////////////
+HDFS Command to copy the file from Local file system to HDFS
+////////////////////////////////////////////////////////////////////
+hdfs dfs -copyFromLocal /home/ubuntu/new /hadoop
+hdfs dfs -copyToLocal /hadoop/sample /home/ubuntu/
+
+hdfs dfs -copyFromLocal /home/cloudera/guruhive_external /user/cloudera/amir
+LOAD DATA INPATH '/home/cloudera/guruhive_external' INTO table guruhive_internaltable;
+
+hdfs dfs -mv /hadoop/sample /tmp
+hdfs dfs -cp /tmp/sample /usr
+hdfs dfs -tail /hadoop/new
+hdfs dfs -chown root:root /tmp
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+efault replication factor to a file is 3. Below HDFS command is used to change replication factor of a file.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+hdfs dfs -setrep -w 2 /usr/sample
+
+///////////////////////////////////////////////////////////
+Copy a directory from one node in the cluster to another
+///////////////////////////////////////////////////////////
+ hdfs dfs -distcp hdfs://namenodeA/apache_hadoop 
+
+hdfs dfs -stat "%F %u:%g %b %y %n" /hadoop/test
+hdfs dfs -stat "%F %u:%g %b %y %n" amir/
+
+/////////////////////////////////
+// get acl
+///////////////////////////////
+hdfs dfs -getfacl /hadoop
+hdfs dfs -getfacl /user/cloudera 
+hdfs dfs -du -s /hadoop
+hdfs dfs -checksum /hadoop/new
+hdfs dfs -getmerge /hadoop/file1 file2 
+
+
+ 

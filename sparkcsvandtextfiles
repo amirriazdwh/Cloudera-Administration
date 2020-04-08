@@ -1,0 +1,39 @@
+tree /A /F
+
+
+I also got same exception , which was resolved after downloading SPARK-CSV and commons-CSV jars. 
+You have to download two jars SPARK-CSV and commons-csv with below commands
+
+SPARK-CSV
+
+wget http://repo1.maven.org/maven2/com/databricks/spark-csv_2.10/1.5.0/spark-csv_2.10-1.5.0.jar
+wget http://central.maven.org/maven2/org/apache/commons/commons-csv/1.1/commons-csv-1.1.jar
+
+Copy these jars in /tmp directory . Now run spark-shell as below
+
+bin/spark-shell --driver-class-path postgresql-9.4.1207.jar --jars postgresql-9.4.1207.jar
+
+spark-shell --jars /tmp/spark-csv_2.10-1.5.0.jar,/tmp/commons-csv-1.1.jar
+
+
+-- read the unstructred text file
+
+case class person(arrDelay:Int, depDelay:Int, origin:String)
+val flights=sc.textFile("/user/hive/warehouse/newcars.csv")
+
+data = sc.textFile('path_to_data')
+header = data.first() #extract header
+data = data.filter(row => row != header)   #filter out header
+
+val df =flights.map(_.split(",")).map(p =>person(p(1).trim.toInt, p(2).trim.toInt,p(3))).toDF()
+
+
+case class person(arrDelay:Int, depDelay:Int, origin:String)
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+val RDDflights=sc.textFile("/user/hive/warehouse/newcars.csv")
+sqlContext.createDataFrame(RDDflights,person)
+
+df.schema
+
+val person: org.apache.spark.sql.types.StructType = StructType(StructField(C0,StringType,true), StructField(C1,StringType,true), StructField(C2,StringType,true))
+

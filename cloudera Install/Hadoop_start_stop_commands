@@ -1,0 +1,106 @@
+////////////////////////////////
+// start cloudera server 
+//////////////////////////////
+
+sudo yum remove cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
+sudo yum install cloudera-manager-daemons cloudera-manager-agent cloudera-manager-server
+
+
+sudo service cloudera-scm-agent stop
+sudo service cloudera-scm-agent start
+sudo service cloudera-scm-agent status
+sudo systemctl start cloudera-scm-agent
+sudo systemctl stop cloudera-scm-agent
+// sends heart beats to cloudera servers 
+sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-agent.log
+
+
+netstat -ant|grep 9000
+
+//Please edit the file /etc/default/cloudera-scm-server, the property is
+sudo service cloudera-scm-server start
+sudo service cloudera-scm-server status
+sudo service cloudera-scm-server stop
+
+sudo systemctl start cloudera-scm-server
+sudo systemctl stop cloudera-scm-server
+sudo systemctl  disable cloudera-scm-server
+sudo systemctl  enable cloudera-scm-server
+netstat -ant|grep 7180
+sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
+
+
+sudo /etc/init.d/cloudera-scm-server start
+
+///////////////////////
+// Mysql commands
+/////////////////////////
+sudo systemctl start mysqld
+sudo systemctl stop mysqld
+sudo systemctl status mysqld
+
+sudo service mysqld start 
+sudo service  mysqld stop
+sudo service  mysqld status
+///////////////////////////////////
+// Yarn server ....
+//////////////////////////////////////////
+sudo service hadoop-mapreduce-historyserver start
+sudo service hadoop-yarn-resourcemanager start
+sudo service hadoop-yarn-nodemanager start
+
+sudo service hadoop-mapreduce-historyserver stop
+sudo service hadoop-yarn-resourcemanager stop
+sudo service hadoop-yarn-nodemanager stop
+
+sudo -u hdfs hadoop dfsadmin -safemode leave
+
+////////////////////////////////////////
+// stop zookeeper
+/////////////////////////////////////////
+sudo service zookeeper-server start
+sudo service zookeeper-server stop
+sudo service zookeeper-server status
+
+////////////////////////////////////
+// stop hbase server 
+////////////////////////////////////
+sudo service hbase-thrift stop
+sudo service hbase-rest stop
+sudo service hbase-regionserver stop
+sudo service hbase-master stop
+///////////////////////////////////
+// spark
+//////////////////////////////
+sudo service spark-worker stop
+sudo service spark-history-server stop
+sudo service spark-master stop
+////////////////////////////
+// stop hive server 
+//////////////////////////////
+sudo service hiveserver2 stop
+sudo service hive-webhcat-server stop
+sudo service hive-metastore stop
+////////////////////////////////
+// stop oozie
+//////////////////////////////
+sudo service oozie stop
+
+////////////////////////////////////////////////////////////
+// start he hadoop cluster 
+////////////////////////////////////////////////////////////
+for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo service $x stop ; done
+for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do echo $x ; done
+
+sudo service hadoop-hdfs-datanode start 
+sudo service hadoop-hdfs-datanode stop
+
+sudo service hadoop-hdfs-journalnode start
+sudo service hadoop-hdfs-journalnode stop
+
+sudo service hadoop-hdfs-namenode start
+sudo service hadoop-hdfs-namenode stop
+
+sudo service hadoop-hdfs-secondarynamenode start 
+sudo service hadoop-hdfs-secondarynamenode status
+sudo service hadoop-hdfs-secondarynamenode stop

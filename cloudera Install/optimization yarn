@@ -1,0 +1,14 @@
+Improving Performance in Shuffle Handler and IFile Reader
+The MapReduce shuffle handler and IFile reader use native Linux calls, (posix_fadvise(2) and sync_data_range), on Linux systems with Hadoop native libraries installed.
+
+Shuffle Handler
+
+You can improve MapReduce shuffle handler performance by enabling shuffle readahead. This causes the TaskTracker or Node Manager to pre-fetch map output before sending it over the socket to the reducer.
+
+To enable this feature for YARN, set mapreduce.shuffle.manage.os.cache, to true (default). To further tune performance, adjust the value of mapreduce.shuffle.readahead.bytes. The default value is 4 MB.
+To enable this feature for MapReduce, set the mapred.tasktracker.shuffle.fadvise to true (default). To further tune performance, adjust the value of mapred.tasktracker.shuffle.readahead.bytes. The default value is 4 MB.
+IFile Reader
+
+Enabling IFile readahead increases the performance of merge operations. To enable this feature for either MRv1 or YARN, set mapreduce.ifile.readahead to true (default). To further tune the performance, adjust the value of mapreduce.ifile.readahead.bytes. The default value is 4MB.
+
+https://docs.cloudera.com/cloudera-manager/7.0.3/managing-clusters/topics/cm-improving-performance-shuffle-handler-ifile.html

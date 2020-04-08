@@ -1,0 +1,16 @@
+// list repository downloaded 
+yum repolist all
+yum repolist enabled
+yum repolist disabled
+
+// list all the available repository online
+yum list all|grep mysql
+// clear cache
+yum clean all
+
+sudo yum-config-manager --enable mysql-connectors-community,mysql-tools-community,mysql56-community
+sudo yum-config-manager --enable ol6_MySQL57
+
+
+bind-address = <ip address of your Magento web node>
+GRANT ALL ON *.* TO root@% IDENTIFIED BY 'oc4jAdmin!';

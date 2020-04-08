@@ -1,0 +1,7 @@
+sudo add-apt-repository ppa:webupd8team/java
+
+
+val df = List("sue", "fan").toDF("name")
+import com.github.mrpowers.spark.pika.Tubular
+val betterDF = df.transform(Tubular.withGoodVibes())
+betterDF.show()

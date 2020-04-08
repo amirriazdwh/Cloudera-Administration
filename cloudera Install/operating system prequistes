@@ -1,0 +1,33 @@
+# set ntp server 
+###########################
+# configure Network
+###########################
+sudo hostnamectl set-hostname foo-1.example.com
+
+#Edit /etc/hosts with the IP address and fully qualified domain name (FQDN) of each host in the cluster. You can add the unqualified name as well.
+#1.1.1.1  foo-1.example.com  foo-1
+#2.2.2.2  foo-2.example.com  foo-2
+#3.3.3.3  foo-3.example.com  foo-3
+#4.4.4.4  foo-4.example.com  foo-4
+
+#Edit /etc/sysconfig/network with the FQDN of this host only:
+HOSTNAME=foo-1.example.com
+
+#Verify that each host consistently identifies to the network:
+#Run uname -a and check that the hostname matches the output of the hostname command.
+#Run /sbin/ifconfig and note the value of inet addr in the eth0 (or bond0) entry, for example:
+
+eth0      Link encap:Ethernet  HWaddr 00:0C:29:A4:E8:97  
+          inet addr:172.29.82.176  Bcast:172.29.87.255  Mask:255.255.248.0
+
+hostnamectl status
+   Static hostname: sparkmachine.local
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 38608b4bbf1e439f9eecb7679f475288
+           Boot ID: d2466c4d9e1a4711893bdbbb2aa354fe
+    Virtualization: kvm
+  Operating System: Oracle Linux Server 7.6
+       CPE OS Name: cpe:/o:oracle:linux:7:6:server
+            Kernel: Linux 4.14.35-1902.3.1.el7uek.x86_64
+      Architecture: x86-64

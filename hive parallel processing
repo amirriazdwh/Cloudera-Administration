@@ -1,0 +1,21 @@
+set hive.enforce.bucketing = true;
+set map.reduce.tasks = 25;
+SET hive.exec.parallel=true;
+SET hive.vectorized.execution.enabled=true;
+INSERT OVERWRITE TABLE mi_cliente_fmes
+select id_interno_pe,
+       cod_nrbe_en,
+       mi_nom_cliente,
+       fec_ncto_const_pe,
+       fecha_prim_rl_cl,
+       sexo_in,
+       cod_est_civil_indv,
+       cod_est_lab_indv,
+       num_hijos_in,
+       ind_autnmo_in,
+       cod_ofcna_corr,
+       cod_cpcdad_lgl_in
+ FROM mi_cliente_fmes_temp;
+
+
+hdfs fsck /myfile.txt -files -blocks -locations
