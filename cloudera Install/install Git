@@ -3,6 +3,7 @@
 # for accesing the report github you need either ssh or https access which is being provided by curl in case of https or git in case of ssh
 ##########################################################################################################################################
 
+#
 yum install curl-devel
 
 wget https://www.kernel.org/pub/software/scm/git/git-2.9.2.tar.gz
