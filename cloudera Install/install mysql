@@ -1,0 +1,117 @@
+###############################################
+# shows all the packages of python installed 
+###############################################
+yum --showduplicates list python-2.*
+
+
+[cloudera@odi-machine bin]$ rpm -qa|grep python27
+
+rpm -ql python
+
+[cloudera@odi-machine bin]$ rpm -ql python*
+package python2.7 is not installed
+package python2.7-config is not installed
+
+
+
+
+
+[cloudera@odi-machine bin]$ ls -al /usr/bin/python*
+-rwxr-xr-x. 2 root root 9032 Dec  4 19:59 /usr/bin/python
+lrwxrwxrwx. 1 root root    6 Feb 25 04:54 /usr/bin/python2 -> python
+-rwxr-xr-x. 2 root root 9032 Dec  4 19:59 /usr/bin/python2.6
+
+# only python 2.6 is available for access
+
+
+##########################
+# install python method 1
+#########################
+
+sudo yum install wget
+
+sudo yum install python27
+source /opt/rh/python27/enable
+
+python –version
+
+
+/usr/local/bin/python2.7
+update-alternatives --install /usr/bin/python python /opt/rh/python27/root/usr/bin/python2.7 0
+# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 
+
+##################################################################
+#  method 2 for python installation
+##################################################################
+wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz
+
+tar xf Python-3.5.1.tgz
+
+./configure
+make
+make test
+sudo make install
+
+The default task for Python, like most packages, is to compile the software so running
+make
+
+once the build is completed use, test the compiled package
+
+make test
+
+Once it’s built you should install the software into some permanent location. Almost all packages that follow the ./configure, make, make install 
+convention will install under the /usr/local/ directory by default: they’ll put their executables in /usr/local/bin/, data files in /usr/local/share/, etc. 
+The /usr/local/ directory is properly considered part of the operating system (as opposed to part of your user account) 
+so you should require root privileges to create files and folders there. This is why make install us usually run under sudo:
+
+sudo make install
+
+You might like to install it somewhere else. Perhaps you don’t have root access or you’d like to install multiple versions side-by-side? 
+In this case you’ll need to change the ./configure command you run at the start to have a --prefix argument:
+
+./configure --prefix=/some/other/directory
+
+If you’ve already used ./configure and/or make with the default settings you can use make clean to wipe out any work it did and start again. 
+For example, let’s install into the py-351 directory under your account home directory you could run the following command:
+
+make clean
+./configure --prefix=$HOME/py-351
+make
+make test
+make install
+
+
+###############################################################################################
+# usually changing the python path creates problems you can add the path in your bash_profile 
+##############################################################################################
+cat .bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+source /opt/rh/python27/enable
+
+export PATH
+
+
+
+
+cd yum.repos.d/
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+
+
+##########
+# remove cloudera manager,  for removing you have to give full package name 
+#########
+ rpm -qa|grep cloudera
+cloudera-manager-daemons-6.3.0-2117683.el6.x86_64
+
+sudo yum remove cloudera-manager-daemons-6.3.0-2117683.el6.x86_64
+

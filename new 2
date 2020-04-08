@@ -1,38 +1,11 @@
-root@192.168.56.103's password:
-     ┌────────────────────────────────────────────────────────────────────┐
-     │                        • MobaXterm 11.1 •                          │
-     │            (SSH client, X-server and networking tools)             │
-     │                                                                    │
-     │ ➤ SSH session to root@192.168.56.103                               │
-     │   • SSH compression : ✔                                            │
-     │   • SSH-browser     : ✔                                            │
-     │   • X11-forwarding  : ✔  (remote display is forwarded through SSH) │
-     │   • DISPLAY         : ✔  (automatically set on remote server)      │
-     │                                                                    │
-     │ ➤ For more info, ctrl+click on help or visit our website           │
-     └────────────────────────────────────────────────────────────────────┘
 
-Last login: Fri Nov 14 04:26:59 2014
 [root@odi-machine ~]# sudo wget -O /etc/yum.repos.d/public-yum-ol6.repo http://yum.oracle.com/public-yum-ol6.repo
---2019-07-27 05:32:38--  http://yum.oracle.com/public-yum-ol6.repo
-Resolving yum.oracle.com... 184.29.228.147
-Connecting to yum.oracle.com|184.29.228.147|:80... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 12045 (12K) [text/plain]
-Saving to: “/etc/yum.repos.d/public-yum-ol6.repo”
-
-100%[===============================================================================================>] 12,045      --.-K/s   in 0s
-
-2019-07-27 05:32:38 (245 MB/s) - “/etc/yum.repos.d/public-yum-ol6.repo” saved [12045/12045]
 
 [root@odi-machine ~]# cd /etc/yum
 yum/         yum.conf     yum.repos.d/
 [root@odi-machine ~]# cd /etc/yum.
 yum.conf     yum.repos.d/
 [root@odi-machine ~]# cd /etc/yum.repos.d/
-[root@odi-machine yum.repos.d]# ls
-adobe-linux-x86_64.repo         packagekit-media.repo  public-yum-ol6.repo.rpmnew
-oracle-linux-ol6.repo.disabled  public-yum-ol6.repo    uek-ol6.repo.disabled
 [root@odi-machine yum.repos.d]# vi public-yum-ol6.repo
 [root@odi-machine yum.repos.d]# cd
 [root@odi-machine ~]# clear
