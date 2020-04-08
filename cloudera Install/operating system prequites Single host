@@ -341,6 +341,7 @@ echo "never" >> /sys/kernel/mm/transparent_hugepage/defrag
 cat /etc/sudoers
 sudo vi /etc/sudoers
 
+#uncomment this line from /etc/sudoers
 ## Same thing without a password
 %wheel  ALL=(ALL)       NOPASSWD: ALL
 

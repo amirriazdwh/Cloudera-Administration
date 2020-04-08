@@ -10,10 +10,10 @@ hadoop version
  hdfs dfs -expunge 
  hdfs dfs -chown -R dataflair /opt/hadoop/logs 
  hdfs dfs -chgrp [-R] New Group sample 
-  hdfs dfs -setrep -w 3 /user/dataflair/dir1 
+ hdfs dfs -setrep -w 3 /user/dataflair/dir1 
  hdfs dfs -du /user/dataflair/dir1/sample 
-hdfs dfs -du -s /user/dataflair/dir1/sample
-hdfs dfs -df -h
+ hdfs dfs -du -s /user/dataflair/dir1/sample
+ hdfs dfs -df -h
 
  hdfs dfs -touchz /user/dataflair/dir2 
 
@@ -158,7 +158,9 @@ hdfs dfs -du -s /hadoop
 hdfs dfs -checksum /hadoop/new
 hdfs dfs -getmerge /hadoop/file1 file2 
 
-
+##############################################
+# run the command with root user privilages 
+###############################################
 sudo -u hdfs hadoop fs -mkdir /user/cloudera
 sudo -u hdfs hadoop fs -put /home/cloudera/jdk-8u221-linux-x64.rpm /user/cloudera
 sudo -u hdfs hadoop fs -chown cloudera:supergroup /user/cloudera
