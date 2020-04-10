@@ -1,0 +1,169 @@
+##############################
+#what is git and git hub
+###############################
+
+1. used for version control.  instead of keep actual file and its history
+2. collabration (no problem with two people working on same file)
+
+###############
+#what is git 
+###############
+actual version control software. 
+
+##################
+#what is git hub
+#################
+a web service where you can keep project managed by git.  it has git command in web interface 
+
+####################
+#what is a reposiotry
+#####################
+its a project ,  a collection of files 
+a repository is name is:  username/repository name 
+
+#######################################
+# Working with repository --- New File 
+########################################
+1. name the file
+2. put the text
+3. then press commit new file.   commit either to master branch or new branch 
+
+################
+# change the file.   press edit 
+##################
+1.  press edit 
+2. press commit changes.  with description 
+
+press history button to see the history 
+a big number beside commit is called commit hash, a unique number. it comes with url. 
+
+#############################
+# what are the branches 
+##############################
+
+
+#######################################
+######################################
+# working with command prompt 
+#####################################
+
+###############################################
+# check weather this is the git reposiotry
+# if its not a git reposiotry it inform you and 
+#  you can create reposiotry by init 
+###############################################
+git status 
+
+###########################################################################
+# get git repository from git hub.  assume your reposiotry is not created 
+##########################################################################
+
+git clone https://github.com/amirriazdwh/SparkTrainingProjects.git
+
+#################
+# git config set user nmae 
+###################
+git --global user.name "amirriazdw"
+git --global user.email "amir.riaz.dwh@gmail.com"
+
+# to see all the above information used
+git config --list 
+
+#######################
+# see the commit log 
+#######################
+
+## see the last two commit log 
+commit log -2
+
+#############
+# concept of remote
+# a remote is a multiple instance of your reposiotry
+#############
+# get the remote repistory linked to your local repistory
+
+git remote 
+# for see the https line 
+git remote -v 
+
+#origin  https://github.com/amirriazdwh/SparkTrainingProjects.git (fetch)
+#origin  https://github.com/amirriazdwh/SparkTrainingProjects.git (push)
+
+##############################
+# commit the get reposiotry
+##############################
+
+# commit everything 
+git commit -a -m "this is a test "
+
+########################
+# once you commit your change are save to local repistory. 
+# to make the changes to your remote repistory you push your changes to remote repistory
+#########################
+
+git push origin 
+
+# in order to push to master branch 
+git push origin master 
+
+###################
+# create git repository on computer and push to git hub 
+#################
+
+# in a newly created folder this will say not a git repistory
+git status 
+
+# iniitialize get repistory
+get init 
+
+####################
+# work flow with git and commit.  a commit will go through these stages in git a commit is like a save 
+# 1. save  you modify the file and then save it.  this save is not commit.  its just that you have save your changes
+# 2. add   in git there is a staging area. where you add the file you want to commit. 
+@ 3. commit you commit changes to repistory.  this will save changes to your local git reposiotry
+# 4. push.  you push the changes to remote github repistory
+########################
+
+# add all files to staging area and commit 
+git commit -a
+
+git add 'new file.txt'
+
+#to unstag a file use 
+git rm --cached <file>..." 
+
+# to add all the file to staging area 
+git add .
+
+# commit the files 
+git commit -m "testing a new file "
+
+# push to remote repository 
+git push origin master 
+git push -u origin master
+
+##################################################
+# connect local repistory with remote repistory
+# if you have not clone your local repistory from remote repistory you have to do it
+###################################################
+
+git remote -v 
+
+git remote add origin https://github.com/amirriazdwh/SparkTrainingProjects.git
+git remote add origin https://github.com/amirriazdwh/Training.git
+
+# remove the repository 
+git remote remove origin
+
+###################
+# difference between clone, push and pull
+##################
+
+# this will pull changes from remote repistory to your local reposiotry
+git pull origin master 
+
+# this will push change from your local repistory to your remote repistory
+git push -u origin master
+
+# this will clone all your remote repistory to your machine local folder
+git clone https://github.com/amirriazdwh/SparkTrainingProjects.git
