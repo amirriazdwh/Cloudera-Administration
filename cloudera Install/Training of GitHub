@@ -47,6 +47,14 @@ a big number beside commit is called commit hash, a unique number. it comes with
 # working with command prompt 
 #####################################
 
+# gives difference between work tree files and staged file
+git diff
+
+# gives difference between staged file and last commit files 
+git diff --staged
+
+git diff master..sdn 
+
 ###############################################
 # check weather this is the git reposiotry
 # if its not a git reposiotry it inform you and 
@@ -69,12 +77,65 @@ git --global user.email "amir.riaz.dwh@gmail.com"
 # to see all the above information used
 git config --list 
 
+##############
+# get branches
+##############
+#git help us in working different version of same file by creating a branch.  when you create reposiotry a master  branch is created 
+# we can create a production branch,  a development branch and a branch for bug fixing 
+
+# each commit has a 40 character hash code,  7 of which is show with commit in commit log.  a branch is just a pointer to commit hash.  
+# a branch is created with a series of commits.  with current hash pointing to previous hash. 
+# the way git knows which branch we are on, is by knowing a special pointer called head. head points to a branch and does not points to a commit.4
+# its also called a symbolic pointer.  heads points out what we have checked out. 
+ 
+git log --all --decorate  --online --graph                   #shows a commit graph
+alias graph =git log --all --decorate  --online --graph      #shows a commit graph
+
+# create new branches 
+git branch sdn
+git branch auth
+
+# show all branches 
+git branch 
+# any branch with * and green color shows that branch is been checked out and head is pointing to that branch 
+
+#checkout and work on branches 
+git checkout sdn
+#when we checkout sdn the head pointer will move to sdn. while we are on this branch we will edit , stag and commit on this branch 
+# since we have only sdn branch checkout only the sdn branch will move out with commit. the master and auth branck will stay on previous commit 
+
+###############
+# git merge
+################
+once you commit your work on these sdn and auth branch we will merg them into master branch.  there are two methods
+1. fast forward merg 
+2. 3 way merge
+
+#fast forward merge is used when master branch is connected directly to that branch.  there can be multiple commits in between them 
+
+git checkout master 
+git diff master .. sdn 
+git merge sdn 
+
+# now we will delete the sdn branch.  before deleting the branch we will make sure that branch is merge into master branch 
+git branch --merge 
+
+# delete the branch 
+git branch -d sdn 
+
+# if you try to delete a branch which is not merged it will give you an error master says use git branch -D auth 
+
 #######################
 # see the commit log 
 #######################
 
 ## see the last two commit log 
-commit log -2
+git log -2
+
+# what has changed with each commit 
+git log -p
+
+git log -- S1  #all the logs contains S1 commit 
 
 #############
 # concept of remote
@@ -96,9 +157,14 @@ git remote -v
 # commit everything 
 git commit -a -m "this is a test "
 
+git commit -m "commit only file in staging area"
+
+git commit  # this will open a default editor where you can put your detailed message and after saving commit completes
+
 ########################
 # once you commit your change are save to local repistory. 
 # to make the changes to your remote repistory you push your changes to remote repistory
+# NOTE: a commit creates a 32digit number in local reposiotry.  push pushes that number of remote reposiotry with this commit 
 #########################
 
 git push origin 
@@ -106,9 +172,13 @@ git push origin
 # in order to push to master branch 
 git push origin master 
 
-###################
+########################################
+# undo a working tree which has changed 
+#######################################
+
+#########################################################
 # create git repository on computer and push to git hub 
-#################
+#########################################################
 
 # in a newly created folder this will say not a git repistory
 git status 
@@ -116,13 +186,13 @@ git status
 # iniitialize get repistory
 get init 
 
-####################
+#######################################################################################################################
 # work flow with git and commit.  a commit will go through these stages in git a commit is like a save 
 # 1. save  you modify the file and then save it.  this save is not commit.  its just that you have save your changes
 # 2. add   in git there is a staging area. where you add the file you want to commit. 
 @ 3. commit you commit changes to repistory.  this will save changes to your local git reposiotry
 # 4. push.  you push the changes to remote github repistory
-########################
+#######################################################################################################################
 
 # add all files to staging area and commit 
 git commit -a
@@ -141,6 +211,35 @@ git commit -m "testing a new file "
 # push to remote repository 
 git push origin master 
 git push -u origin master
+
+########
+# .gitignore files
+##########
+these are the files which are not part of project and must be ignored 
+edit this file and add the file name to this file 
+
+# commit the .gitignore file to remote reposiotry
+
+##################
+# remove a file from working tree. working tree is your directory
+#####################
+
+git rm 'new file.txt'
+
+#NOTE: removing a file automatically adds it to staging area 
+
+##################
+# undo a changed file S1
+##################
+
+# restore the file from remote repistory from latest commit 
+git checkout -- S1
+
+# restore the file from remote repistory from commit number 9bb9
+
+git log -- S2 
+
+git checkout 9bb9 --S2  # automatically add it to staging area also 
 
 ##################################################
 # connect local repistory with remote repistory
