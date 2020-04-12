@@ -1,10 +1,31 @@
 // list repository downloaded 
+# list all present repository
 yum repolist all
+
+# list enabled repository
+yum repolist
+
+#enable repository
 yum repolist enabled
+
+#disable repository
 yum repolist disabled
 
 // list all the available repository online
 yum list all|grep mysql
+
+# list mysql packages available in all repositories 
+yum list mysql*
+
+#here in this senerio i was trying to find out git latest version.   i installed ius repository but could not find version of give. 
+#then i typed 
+
+# command provided me version of git in all repositories installed i can see version git222.  
+yum list git*
+
+#i install git222
+yum install git222
+
 // clear cache
 yum clean all
 
@@ -14,3 +35,32 @@ sudo yum-config-manager --enable ol6_MySQL57
 
 bind-address = <ip address of your Magento web node>
 GRANT ALL ON *.* TO root@% IDENTIFIED BY 'oc4jAdmin!';
+
+#download ius repositry 
+yum install \
+https://repo.ius.io/ius-release-el6.rpm \
+https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
+# list all the package in a repository ius.  
+[root@odi-machine yum.repos.d]# yum list available|grep ius
+
+# all installed packages in mysql repository
+yum list installed|grep mysql*
+
+# from command find package 
+rpm -qa|grep mysql
+
+#from package find repository
+yum list installed|grep mysql*
+
+yum repo-pkgs ius list
+
+#install a package from a specific repositry 
+# yum --enablerepo=epel install phpmyadmin
+
+
+#To view all the past transactions of yum command, just use the following command.
+yum history
+
+
+

@@ -1,3 +1,10 @@
+yum install \
+https://repo.ius.io/ius-release-el6.rpm \
+https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
+install ius repository for older linux version 
+
+
 # install git 
 
 If you do want to install Git from source, you need to have the following libraries that Git depends on: autotools, curl, zlib, openssl, expat, and libiconv.
@@ -5,9 +12,16 @@ If you do want to install Git from source, you need to have the following librar
  the minimal dependencies for compiling and installing the Git binaries:
 
 
+###uninstall ## git 
+sudo find /usr/local -depth -iname 'git*' -exec rm -rf {} \;
+
+
+
 ############################################################################################################################################
 # for accesing the report github you need either ssh or https access which is being provided by curl in case of https or git in case of ssh
 ##########################################################################################################################################
+
+
 
 #
 yum install curl-devel
