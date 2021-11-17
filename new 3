@@ -1,9 +1,0 @@
-wget https://archive.cloudera.com/cm6/6.2.0/redhat6/yum/
-
-groupadd -g 2000 cloudera
-
-useradd -u 2000 cloudera -G cloudera
-
-
-usermod -aG wheel cloudera
-

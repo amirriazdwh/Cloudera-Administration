@@ -1,0 +1,17 @@
+UPDATE mysql.user SET Password=PASSWORD('password') WHERE User='root';
+
+
+beeline> !connect jdbc:hive2://localhost:10000/default
+
+
+ Attempt to do update or delete using transaction manager that does not support these operations. (state=42000,code=10294)
+
+set --isolation=TRANSACTION_READ_COMMITTED;
+
+
+set hive.txn.manager = org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
+CREATE TABLE customer_txn(cust_id int,customer_name varchar(20)) 
+clustered by (cust_id) into 5 buckets 
+stored as orc TBLPROPERTIES('transactional'='true');
+
+CREATE TABLE college(clg_id int,clg_name string,clg_loc string) clustered by (clg_id) into 5 buckets stored as orc TBLPROPERTIES('transactional'='true');
